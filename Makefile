@@ -2,10 +2,10 @@ PYTHON := uv run
 
 # --- Linting & Formatting ---
 format:
-	ruff format
+	uv run ruff format
 
 check:
-	ruff check --fix
+	uv run ruff check --fix
 
 format-check:
 	make format
@@ -109,8 +109,7 @@ kill:
 	pgrep -f scribe-tokens | xargs kill -9
 
 check-cuda:
-	source .venv/bin/activate
-	$(PYTHON) -c "import torch; print(f'CUDA: {torch.cuda.is_available()}, GPU: {torch.cuda.get_device_name(0) if torch.cuda.is_available() else \"None\"}')"
+	$(PYTHON) python -c "import torch; print(f'CUDA: {torch.cuda.is_available()}, GPU: {torch.cuda.get_device_name(0) if torch.cuda.is_available() else \"None\"}')"
 
 tmux:
 	tmux new-session -A -s train

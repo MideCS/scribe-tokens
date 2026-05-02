@@ -106,7 +106,7 @@ for ((i=0; i<total_models; i+=K)); do
 
         # Create a detached tmux session and run the training command
         tmux new-session -d -s "$session_name" bash -c "
-            cd /home/ubuntu/projects/scribe-tokens
+            cd '$PWD'
             echo 'Starting training for ${task} - ${repr}'
             echo 'Command: ${PYTHON_CMD} -m ${SCRIPT_PATH} --task ${task} --repr ${repr}'
             ${PYTHON_CMD} -m ${SCRIPT_PATH} --task ${task} --repr ${repr}
