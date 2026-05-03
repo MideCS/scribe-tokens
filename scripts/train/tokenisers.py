@@ -7,7 +7,7 @@ from ink_tokeniser.trainer import InkBpeTrainer
 from schemas.ink import DigitalInk
 from schemas.parsed import Parsed
 
-assert DATASET == "iam", "Use IAM for more robust tokenisers"
+assert DATASET in {"iam", "didi"}, "Tokeniser training expects an ink-only dataset (iam or didi)"
 
 DELTAS = [1, 2, 4, 8, 16, 32]
 MAX_VOCAB_SIZE = 100_000

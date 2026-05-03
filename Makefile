@@ -18,11 +18,15 @@ parse-iam:
 parse-deepwriting:
 	$(PYTHON) -m scripts.preprocess.parse_deepwriting
 
+parse-didi:
+	$(PYTHON) -m scripts.preprocess.parse_didi
+
 split-deepwriting:
 	$(PYTHON) -m scripts.preprocess.split_deepwriting
 
 preprocess-iam: parse-iam
 preprocess-deepwriting: parse-deepwriting split-deepwriting
+preprocess-didi: parse-didi
 
 # --- Tokenizer ---
 train-tokenizers:

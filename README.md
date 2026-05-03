@@ -39,6 +39,7 @@ Update `DATASET` in:
 Valid values:
 - `"iam"`
 - `"deepwriting"`
+- `"didi"`
 
 Most scripts read paths from that constant and some preprocess scripts assert a specific dataset value.
 
@@ -94,6 +95,23 @@ Then preprocess:
 ```bash
 make preprocess-deepwriting
 ```
+
+### DiDi Dataset (Diagrams)
+
+Place the NDJSON file so the directory matches:
+
+```text
+data/didi/raw/
+└── diagrams_20200131.ndjson
+```
+
+Then preprocess:
+
+```bash
+make preprocess-didi
+```
+
+This converts each NDJSON line to a `Parsed` JSON under `data/didi/parsed/` and writes split stem lists under `data/didi/split/`.
 
 This parses JSON into `data/deepwriting/parsed/*.json` and generates random train/val/test splits under `data/deepwriting/split/`.
 
