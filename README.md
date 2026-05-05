@@ -5,6 +5,7 @@ Implementation and experiment pipeline for **ScribeTokens**, the digital-ink tok
 📄 [Paper](https://arxiv.org/abs/2603.02805) | 📦 [Library (tokink)](https://github.com/douglasswng/tokink)
 
 ScribeTokens represents pen trajectories with a fixed base vocabulary of 10 tokens:
+
 - 8 directional unit-step tokens (Freeman-style chain directions)
 - 2 pen-state tokens (`[DOWN]`, `[UP]`)
 
@@ -34,9 +35,11 @@ export PYTHONPATH="$PWD/src"
 ### 3) Select dataset
 
 Update `DATASET` in:
+
 - `src/constants.py`
 
 Valid values:
+
 - `"iam"`
 - `"deepwriting"`
 - `"didi"`
@@ -102,7 +105,7 @@ Place the NDJSON file so the directory matches:
 
 ```text
 data/didi/raw/
-└── diagrams_20200131.ndjson
+└── diagrams_wo_text_20200131.ndjson
 ```
 
 Then preprocess:
@@ -162,49 +165,49 @@ All script entrypoints are exposed as `make` targets. Run from repo root:
 make <target>
 ```
 
-| Target | What it does |
-|---|---|
-| **Linting** | |
-| `format` | `ruff format` |
-| `check` | `ruff check --fix` |
-| `format-check` | Runs both `format` and `check` |
-| **Preprocessing** | |
-| `parse-iam` | Parse IAM raw XML into `data/iam/parsed/` |
-| `parse-deepwriting` | Parse DeepWriting JSON into `data/deepwriting/parsed/` |
-| `split-deepwriting` | Generate random train/val/test splits for DeepWriting |
-| `preprocess-iam` | `parse-iam` (splits are generated during parsing) |
-| `preprocess-deepwriting` | `parse-deepwriting` then `split-deepwriting` |
-| **Tokenizer** | |
-| `train-tokenizers` | Train tokenizer families (delta/vocab sweep) |
-| `eval-compression` | Evaluate tokenizer compression metrics |
-| `eval-oov` | Evaluate tokenizer OOV metrics |
-| `eval-tokenizers` | Runs `eval-compression` and `eval-oov` |
-| **Training** | |
-| `train` | Train all default model/task combinations |
-| `train-test` | Quick test run (`--all --test`) |
-| `train-parallel` | Runs `scripts/train/parallel.sh` |
-| **Evaluation** | |
-| `eval` | Evaluate all supported tasks |
-| `eval-htr` | Evaluate HTR only |
-| `eval-htg` | Evaluate HTG only |
-| **Plotting** | |
-| `plot` | Generate all figures and tables |
-| `plot-compression` | Compression figure only |
-| `plot-oov` | OOV figure only |
-| `plot-discretization` | Discretization figure only |
-| `plot-double-descent` | Double-descent figure only |
-| `plot-attention` | Attention visualization figure(s) only |
-| `plot-convergence` | Convergence speedup table only |
-| `plot-results` | Result CSV to LaTeX tables only |
-| `plot-scribe` | Scribe token visualization figure only |
-| `plot-htg` | HTG handwriting sample grid figure only |
-| **Utilities** | |
-| `move-checkpoints` | Move best checkpoint weights into `models/` |
-| `fetch-metrics` | Fetch SwanLab run metrics to CSV |
-| `fetch-compute-time` | Print total compute time from SwanLab runs |
-| `kill` | Kill processes matching `scribe-tokens` |
-| `check-cuda` | Print CUDA availability/device via PyTorch |
-| `tmux` | Open/attach tmux session named `train` |
+| Target                   | What it does                                           |
+| ------------------------ | ------------------------------------------------------ |
+| **Linting**              |                                                        |
+| `format`                 | `ruff format`                                          |
+| `check`                  | `ruff check --fix`                                     |
+| `format-check`           | Runs both `format` and `check`                         |
+| **Preprocessing**        |                                                        |
+| `parse-iam`              | Parse IAM raw XML into `data/iam/parsed/`              |
+| `parse-deepwriting`      | Parse DeepWriting JSON into `data/deepwriting/parsed/` |
+| `split-deepwriting`      | Generate random train/val/test splits for DeepWriting  |
+| `preprocess-iam`         | `parse-iam` (splits are generated during parsing)      |
+| `preprocess-deepwriting` | `parse-deepwriting` then `split-deepwriting`           |
+| **Tokenizer**            |                                                        |
+| `train-tokenizers`       | Train tokenizer families (delta/vocab sweep)           |
+| `eval-compression`       | Evaluate tokenizer compression metrics                 |
+| `eval-oov`               | Evaluate tokenizer OOV metrics                         |
+| `eval-tokenizers`        | Runs `eval-compression` and `eval-oov`                 |
+| **Training**             |                                                        |
+| `train`                  | Train all default model/task combinations              |
+| `train-test`             | Quick test run (`--all --test`)                        |
+| `train-parallel`         | Runs `scripts/train/parallel.sh`                       |
+| **Evaluation**           |                                                        |
+| `eval`                   | Evaluate all supported tasks                           |
+| `eval-htr`               | Evaluate HTR only                                      |
+| `eval-htg`               | Evaluate HTG only                                      |
+| **Plotting**             |                                                        |
+| `plot`                   | Generate all figures and tables                        |
+| `plot-compression`       | Compression figure only                                |
+| `plot-oov`               | OOV figure only                                        |
+| `plot-discretization`    | Discretization figure only                             |
+| `plot-double-descent`    | Double-descent figure only                             |
+| `plot-attention`         | Attention visualization figure(s) only                 |
+| `plot-convergence`       | Convergence speedup table only                         |
+| `plot-results`           | Result CSV to LaTeX tables only                        |
+| `plot-scribe`            | Scribe token visualization figure only                 |
+| `plot-htg`               | HTG handwriting sample grid figure only                |
+| **Utilities**            |                                                        |
+| `move-checkpoints`       | Move best checkpoint weights into `models/`            |
+| `fetch-metrics`          | Fetch SwanLab run metrics to CSV                       |
+| `fetch-compute-time`     | Print total compute time from SwanLab runs             |
+| `kill`                   | Kill processes matching `scribe-tokens`                |
+| `check-cuda`             | Print CUDA availability/device via PyTorch             |
+| `tmux`                   | Open/attach tmux session named `train`                 |
 
 ### Important note on `train-parallel`
 
@@ -247,6 +250,7 @@ make plot-oov
 ```
 
 Outputs:
+
 - `output/results/compression.csv`
 - `output/results/oov.csv`
 - `output/figures/compression.pdf`
@@ -269,6 +273,7 @@ uv run -m scripts.train.main --all --epochs 50 --batch-size 16
 ```
 
 CLI options (from `scripts/train/main.py`):
+
 - `--all` or `--task <TASK>` (mutually exclusive)
 - `--repr <scribe|point5|rel|text>` (required when using `--task`)
 - `--test`
@@ -277,6 +282,7 @@ CLI options (from `scripts/train/main.py`):
 - `--batch-size <int>`
 
 Supported tasks:
+
 - `HTR`, `HTG`, `NTP`, `HTR_SFT`, `HTG_SFT`
 
 ### Evaluation

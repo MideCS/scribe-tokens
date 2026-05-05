@@ -17,7 +17,8 @@ RESULTS_DIR = OUTPUT_DIR / "results"
 TABLES_DIR = OUTPUT_DIR / "tables"
 
 # DATASET: Literal["iam", "deepwriting", "didi"] = "deepwriting"
-DATASET: Literal["iam", "deepwriting", "didi"] = "iam"
+# DATASET: Literal["iam", "deepwriting", "didi"] = "iam"
+DATASET: Literal["iam", "deepwriting", "didi"] = "didi"
 EXPERIMENT_NAME = f"scribe-tokens-{DATASET}"
 MODELS_DIR = BASE_DIR / "models" / DATASET
 

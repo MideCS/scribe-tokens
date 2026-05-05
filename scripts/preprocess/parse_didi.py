@@ -14,14 +14,14 @@ assert DATASET == "didi", "Dataset must be didi"
 
 def _default_raw_path() -> Path:
     """
-    Preferred location is `data/didi/raw/diagrams_20200131.ndjson` (via RAW_DIR).
-    For convenience, we fall back to `datasets/didi/diagrams_20200131.ndjson` if present.
+    Preferred location is `data/didi/raw/diagrams_wo_text_20200131.ndjson` (via RAW_DIR).
+    For convenience, we fall back to `datasets/didi/diagrams_wo_text_20200131.ndjson` if present.
     """
-    candidate = RAW_DIR / "diagrams_20200131.ndjson"
+    candidate = RAW_DIR / "diagrams_wo_text_20200131.ndjson"
     if candidate.exists():
         return candidate
 
-    fallback = Path(__file__).resolve().parents[2] / "datasets" / "didi" / "diagrams_20200131.ndjson"
+    fallback = Path(__file__).resolve().parents[2] / "datasets" / "didi" / "diagrams_wo_text_20200131.ndjson"
     return fallback
 
 
@@ -107,8 +107,8 @@ def main(raw_path: Path | None = None) -> None:
     if not raw_path.exists():
         raise FileNotFoundError(
             f"DiDi NDJSON not found at `{raw_path}`. "
-            f"Place it at `{RAW_DIR / 'diagrams_20200131.ndjson'}` (recommended) "
-            "or `datasets/didi/diagrams_20200131.ndjson` (fallback)."
+            f"Place it at `{RAW_DIR / 'diagrams_wo_text_20200131.ndjson'}` (recommended) "
+            "or `datasets/didi/diagrams_wo_text_20200131.ndjson` (fallback)."
         )
 
     train_ids: list[str] = []
@@ -151,4 +151,3 @@ def main(raw_path: Path | None = None) -> None:
 if __name__ == "__main__":
     clear_folder(PARSED_DIR)
     main()
-
